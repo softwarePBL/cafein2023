@@ -1,0 +1,34 @@
+import { dbService, authService } from 'fbase';
+import React, { useEffect, useState } from 'react';
+import { getFirestore, addDoc, getDocs, collection, query, onSnapshot, orderBy, serverTimestamp } from "firebase/firestore";
+import { useNavigate } from 'react-router-dom';
+import ModalPage from 'routes/ModalPage';
+import Home from 'routes/Home';
+
+const MakeCart = () => {
+    const user = authService.currentUser;
+
+    const onSubmit = async (event) => {
+        event.preventDefault();
+        const docRef = await addDoc(collection(dbService, "Like"), {
+                ProductID: 43435,
+                ProductName: "스타벅스 카페 베로나 홀빈 커피",
+                ProductImg : "https://firebasestorage.googleapis.com/v0/b/cafein-d4561.appspot.com/o/productimages%2Fcoffee.png?alt=media&token=77458d48-ddff-4c32-81d5-25b06257e014",
+                UserID : user.uid
+                });
+            console.log("들어감");
+    };
+
+
+    return(
+        <>
+            <form>
+                <>
+                <button type="submit" onClick={onSubmit} >주문하기</button>
+                </>
+            </form>
+        </>
+    );      
+};
+
+export default MakeCart;

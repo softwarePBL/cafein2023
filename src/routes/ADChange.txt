@@ -1,0 +1,114 @@
+/*
+import { getFirestore, addDoc, doc, updateDoc, deleteDoc, getDocs, collection, query, onSnapshot, orderBy, serverTimestamp } from "firebase/firestore";
+import { dbService, authService, storageService } from "fbase";
+import React, {useState} from "react";
+import { useNavigate } from "react-router-dom";
+import { deleteObject, ref, uploadString, getDownloadURL } from "firebase/storage";
+import { v4 as uuidv4 } from 'uuid';
+
+const ReviewED = ({addressObj, isOwner}) => {
+    const user = authService.currentUser;
+
+    const [editing, setEditing] = useState(false);
+    const [newReview, setNewReview] = useState(reviewObj.text);
+    const [attachment, setAttachment] = useState("");
+
+    const onChange = (event) => { 
+        const { target: {value} } = event; 
+        setNewReview(value); 
+        console.log(setNewReview(value));
+    };
+
+    const onSubmit = async (event) => {
+        event.preventDefault();
+        const updateContent = {
+            address: newaddress,
+            postCodes: newpostCodes,
+            detailAddress: newdetailAddress,
+            InputTime : Date.now(),
+        };
+        await updateDoc(doc(dbService, `Address/${addressObj.id}`), updateContent);
+        setEditing(false); 
+        setAttachment("");
+    };
+
+
+    return (
+        <div>
+            {editing ? (
+                <> 
+                <form onSubmit={onSubmit}> 
+                    <input onChange={onChange} value={newReview} required/> 
+                    <input type="submit" value="변경하기"></input>
+                    <button onClick={toggleEditing}>취소</button>
+                 </form>
+                </>
+            ) : (
+                <> 
+                    <h4>{addressObj.postCodes}</h4>
+                    <h4>{addressObj.detailAddress}</h4>
+                    <h4>{addressObj.address}</h4>
+                </>
+            )}
+            <form onSubmit={onSubmit}>
+                <button onClick={openModal}> 주소 조회 </button>
+                {modalVisible && (
+                    <Modal visible={modalVisible} closable={true} maskClosable={true} onClose={closeModal} >
+                        <DaumPostcode name="postcode" onComplete={handleComplete} className="post-code" />
+                        {isOpenSecondPopup && (
+                        <div>
+                            <h3>상세 주소 입력</h3>
+                            <input name="detail" placeholder="상세 주소를 입력해 주세요" onChange={onChange} value={detailAddress} />
+                            <button type= "submit" onClick={onClick} >저장</button> </div> )}
+                    </Modal>
+                )}
+                {address ? (
+                <div> 
+                    <div className="text">우편번호 : {NewpostCodes}</div> 
+                    <div className="text">주소 : {Newaddress}</div> </div>
+                ) : ( <div className="text">
+                    <span className="emph"></span> <br/></div> )}
+                <button required>회원가입 완료하기</button>
+            </form>
+        </div>
+    ); 
+};
+
+export default ReviewED;
+*/
+
+-- 끝없이 출력됨
+import { dbService, authService } from 'fbase';
+import React, { useEffect, useState } from 'react';
+import { collection, query, where, getDocs, onSnapshot } from 'firebase/firestore';
+import LookAddress from '../routes/LookAddress';
+
+const ADChange = () => {
+  const [userAddress, setUserAddress] = useState([]);
+  const user = authService.currentUser;
+
+  useEffect(() => {
+    const q = query(
+      collection(dbService, 'Address'),
+      where('CreatorId', '==', user.uid)
+    );
+
+    getDocs(q).then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        setUserAddress(userAddress => [...userAddress, doc.data()]);
+      });});
+    });
+
+  return (
+    <div>
+      {userAddress.map((address) => (
+        <LookAddress
+          key={address.id}
+          Address={address}
+      />))}
+    </div>
+  );
+};
+
+export default ADChange;
+

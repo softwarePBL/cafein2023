@@ -1,0 +1,58 @@
+.myPageReviewBack{
+    background: rgba(192, 192, 192, 0.12);
+    border: 1px solid #F1F1F1;
+    border-radius: 17px;
+    margin-left: 10%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    width:80%;
+}
+
+.NewReviewArea, .WrittenReviewArea{
+    width:70%;
+    height: 300px;
+    text-align: start;
+    border:1px gray solid;
+    margin:auto;
+}
+
+.NewReviewPicture, .WrittenReviewPicture{
+    border: none;
+    text-align: center;
+    width:30%;
+    height:130%;
+    font-size:0.8rem;
+    display: grid;
+    margin:auto;
+    margin-bottom: 2%;
+    vertical-align: 0px;
+}
+
+.NewReviewSubmit, .WrittenReviewSubmit, .WrittenReviewCancle{
+    background: rgba(192, 192, 192, 0.12);
+    border: 1px gray solid;
+    border-radius: 15px;
+    width:30%;
+    font-size:0.8rem;
+    display: grid;
+    margin:auto;
+}
+
+.ReviewedList>img, .ReviewedList>h4{
+    box-sizing: border-box;
+    justify-content: center;
+    display: grid;
+}
+
+.ReviewedList>img{
+    margin:auto;
+}
+
+.ReviewedListButtons{
+    display: flex;
+    margin-left: 70%;
+}
+
+.ReviewedListButtons>button{
+    justify-content: center;
+}
